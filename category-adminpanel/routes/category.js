@@ -14,6 +14,7 @@ route.post('/insertCategory', uploads.single('c_image'), insertCategory);
 route.get('/viewcategorypage', viewcategorypage);
 
 route.get('/editcategoryPage', editcategoryPage);
+
 route.post('/updatecategory/:id', uploads.single('c_image'), updatecategory);
 
 route.get('/deletecategory/:id', deletecategory);

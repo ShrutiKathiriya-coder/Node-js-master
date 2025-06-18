@@ -1,0 +1,94 @@
+<%- include('../header') %>
+
+<style>
+    .center-wrapper {
+        min-height: calc(100vh - 160px); /* Adjust if your header/footer is taller/shorter */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .table img {
+        height: 80px;
+        object-fit: contain;
+    }
+</style>
+
+<div class="page-wrapper">
+    <!-- Breadcrumb Section -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center justify-content-between">
+                <h4 class="page-title">SubCategory Table</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centered Content -->
+    <div class="container-fluid center-wrapper">
+        <div class="card shadow rounded">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-4">SubCategory Data</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Category Image</th>
+                                <th>Category Title</th>
+                                <th>SubCategory Title</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <% records.map((data, index) => { %>
+<tr>
+    <td><%= index + 1 %></td>
+    
+    <td>
+        <% if (data.category_id && data.category_id.c_image) { %>
+            <img src="../<%= data.category_id.c_image %>" alt="Category Image" style="height: 60px;">
+        <% } else { %>
+            <span>No Image</span>
+        <% } %>
+    </td>
+
+    <td>
+        <%= data.category_id ? data.category_id.c_title : 'N/A' %>
+    </td>
+
+    <td><%= data.subcategory_title %></td>
+
+    <td>
+        <a href="/subcategory/updateSubCategoryPage/<%= data.id %>">
+            <button class="btn btn-success btn-sm">Edit</button>
+        </a>
+        <a href="/subcategory/deleteSubCategory/<%= data.id %>">
+            <button class="btn btn-danger btn-sm">Delete</button>
+        </a>
+    </td>
+</tr>
+<% }) %>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

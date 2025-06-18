@@ -1,19 +1,26 @@
-const model =require('../models/categorymodel');
+const category =require('../models/categorymodel');
 const subcategory=require("../models/subcategory");
+const extraCategory=require('../models/extracategory');
+const products=require('../models/productmodel')
+const mongoose = require("mongoose");
+const fs = require("fs");
 
 // Add SubCategory Page
 const addSubcategoryPage = async (req, res) => {
+
+const currentAdmin = req.user;
   try {
     const allCategory = await category.find({});
 
-    res.render("subcategory/addsubcategoryPage", {
+    res.render("subcategory/addsubcategorypage", {
       allCategory: allCategory,
       success: req.flash("success"),
       error: req.flash("error"),
+      currentAdmin
     });
   } catch (e) {
     console.log(e);
-    res.redirect("/back");
+    res.redirect("/subcategory/addsubcategorypage");
   }
 };
 
@@ -31,15 +38,123 @@ const insertsubcategory = async (req, res) => {
       req.flash("error", "Subcategory insertion falied...");
     }
 
-    res.redirect("/subcategory/addsubcateorypage");
+    res.redirect("/subcategory/addsubcategorypage");
   } catch (e) {
     console.log(e);
     req.flash("error", `Exception ${e}`);
-    res.redirect("/subcategory/addsubcateorypage");
+    res.redirect("/subcategory/addsubcategorypage");
+  }
+};
+
+const viewSubcategoryPage = async (req, res) => {
+  try {
+    const record = await subcategory.find().populate("category_id").exec();
+
+    console.log("Sub Category Records", record);
+
+    if (record) {
+      res.render("subcategory/viewsubcategorypage", {
+        records: record,
+        success: req.flash("success"),
+        error: req.flash("error"),
+      });
+    } else {
+      res.redirect("subcategory/viewsubcategorypage");
+      req.flash("error", "SubCategory not found..");
+    }
+  } catch (e) {
+    console.log(e);
+    res.redirect("back");
+  }
+}
+
+
+const updateSubCategoryPage = async (req, res) => {
+  try {
+    const allCategory = await category.find({});
+    const updateSubCategory = await subcategory.findById(req.params.id);
+
+    allCategory && updateSubCategory
+      ? res.render("subcategory/editsubcategorypage", {
+          allCategory,
+          updateSubCategory,
+          success: "",
+          error: "",
+        })
+      : res.redirect("subcategory/editsubcategorypage  ");
+  } catch (e) {
+    console.log(e);
+    res.redirect("back");
+  }
+};
+
+//updateSubCategory
+
+const updateSubCategory = async (req, res) => {
+  console.log(req.body);
+  console.log(req.params.id);
+
+  try {
+    const updateData = await subcategory.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+
+    if (updateData) {
+      req.flash("success", "SubCateory is updated...");
+    } else {
+      req.flash("error", "SubCateory is not updated...");
+    }
+    res.redirect("/subcategory/viewsubcategorypage");
+  } catch (e) {
+    console.log(e);
+
+    res.redirect("back");
+  }
+};
+
+const deleteSubCategory = async (req, res) => {
+  const Id = req.params.id
+
+  console.log("Delete SubCategory Id", Id);
+
+  try {
+    const deletExtraCategory = await extraCategory.deleteMany({
+      subCategory_id: Id,
+    });
+
+    const productDeleteData = await products.deleteMany({
+      subcategory_id: req.params.id,
+    });
+
+    if (deletExtraCategory) {
+      const deleteSubCategory = await subcategory.findByIdAndDelete(Id);
+      console.log(deleteSubCategory);
+
+      if (deleteSubCategory) {
+        req.flash(
+          "success",
+          `${deleteSubCategory.subcategory_title} deleted successfully...`
+        );
+      } else {
+        req.flash("error", "SubCategory Deletion failed...");
+      }
+    } else {
+      req.flash("error", "Deletion Failed....");
+    }
+
+    res.redirect("/subcategory/viewsubcategorypage");
+  } catch (e) {
+    console.log(e);
+    res.redirect("/subcategory/viewsubcategorypage");
   }
 };
 
 module.exports = {
   addSubcategoryPage,
-  insertsubcategory
+  insertsubcategory,
+  viewSubcategoryPage,
+  updateSubCategoryPage,
+  updateSubCategory,
+  deleteSubCategory
 };

@@ -36,6 +36,8 @@ app.use(passport.currentAdmin);
 app.use('/',require('./routes/adminroute'))
 app.use('/category', require('./routes/category'));
 app.use('/subcategory',require('./routes/subcategory'));
+app.use('/extracategory',require('./routes/extracategory'));
+app.use('/products',require('./routes/products'));
 
 app.listen(port,()=>{
     console.log("server started..😎"); 

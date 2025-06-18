@@ -1,4 +1,8 @@
 const category=require('../models/categorymodel');
+const subcategory=require('../models/subcategory');
+const extraCategory=require('../models/extracategory');
+const products=require('../models/productmodel');
+
 const mongoose= require('mongoose');
 const fs=require('fs');
 

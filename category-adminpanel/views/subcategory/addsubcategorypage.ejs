@@ -1,85 +1,75 @@
-<%- include('../header')%>
+<%- include('../header') %>
 
-    <div class="page-wrapper">
-        <div class="page-breadcrumb">
-            <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">SubCategoy Form</h4>
-                    <div class="ms-auto text-end">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Library
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+<style>
+    .center-wrapper {
+        min-height: calc(100vh - 120px); /* Adjust depending on header/footer height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+</style>
+
+<div class="page-wrapper">
+    <!-- Page Title and Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center justify-content-between">
+                <h4 class="page-title">SubCategory Form</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
         </div>
+    </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <form class="form-horizontal" method="post" action="/subcategory/insertsubcategory">
-                            <div class="card-body">
-                                <h4 class="card-title">Sub Category</h4>
+    <!-- Centered Form Wrapper -->
+    <div class="container-fluid center-wrapper">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow rounded">
+                <form class="form-horizontal" method="POST" action="/subcategory/insertsubcategory">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4 text-center">Add Sub Category</h4>
 
-                                <!-- SubCategory Title  -->
-                                <div class="form-group row">
-                                    <label for="fname" class="col-sm-3 text-end control-label col-form-label">
-                                        Category
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="category_id">
+                        <!-- Category Dropdown -->
+                        <div class="form-group row">
+                            <label class="col-sm-4 text-end control-label col-form-label">Category</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="category_id" required>
+                                    <option value="">--- Select ---</option>
+                                    <% allCategory.map((category) => { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.c_title %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
 
-                                            <option value="">--- Select ---</option>
-                                            <% allCategory.map((category)=> { %>
-
-                                                <option value="<%= category.id %>">
-                                                    <%= category.c_title %>
-                                                </option>
-
-                                                <% }) %>
-
-
-
-                                        </select>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- SubCategory Title  -->
-                                <div class="form-group row">
-                                    <label for="fname" class="col-sm-3 text-end control-label col-form-label">Sub
-                                        Category
-                                        Title</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="subcategory_title"
-                                            placeholder="Enter Sub Category Title" required />
-                                    </div>
-                                </div>
-
-
-
-                                <!-- Add Category Button  -->
-                                <div class="border-top">
-                                    <div class="card-body">
-                                        <button type="submit" class="btn btn-primary">
-                                            Add Sub Category
-                                        </button>
-                                    </div>
-                                </div>
-                        </form>
+                        <!-- SubCategory Title -->
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-4 text-end control-label col-form-label">SubCategory Title</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="subcategory_title"
+                                    placeholder="Enter SubCategory Title" required />
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <!-- Submit Button -->
+                    <div class="border-top">
+                        <div class="card-body text-center">
+                            <button type="submit" class="btn btn-primary px-5">Add Sub Category</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
         </div>
+    </div>
+</div>
 
-
-
-        <%- include('../footer') %>
+<%- include('../footer') %>

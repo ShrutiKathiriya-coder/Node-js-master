@@ -1,0 +1,160 @@
+<%- include('../header') %>
+
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 0;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .form-control,
+    .custom-file-input {
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="page-wrapper">
+    <!-- Breadcrumb/Header -->
+    <div class="page-breadcrumb bg-light py-3">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h4 class="page-title m-0">Add Product</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centered Form Section -->
+    <div class="main-content">
+        <div class="card shadow-lg">
+            <form class="form-horizontal" method="post" action="/products/insertProduct" enctype="multipart/form-data">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Product Details</h4>
+
+                    <!-- Product Name -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Product Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="product_name" required placeholder="Enter product name" />
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Category</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="category_id" required>
+                                <option value="">Select</option>
+                                <% allCategory.forEach(data => { %>
+                                    <option value="<%= data.id %>"><%= data.c_title %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- SubCategory -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">SubCategory</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="subcategory_id" required>
+                                <option value="">Select</option>
+                                <% allSubCategory.forEach(data => { %>
+                                    <option value="<%= data.id %>"><%= data.subcategory_title %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ExtraCategory -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">ExtraCategory</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="extracategory_id">
+                                <option value="">Select</option>
+                                <% allExtraCategory.forEach(data => { %>
+                                    <option value="<%= data.id %>"><%= data.extraCategory_title %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Old Price -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Old Price</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="old_price" required placeholder="Enter old price" />
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Price</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="product_price" required placeholder="Enter price" />
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Description</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="product_desc" rows="3" placeholder="Write description here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Stock -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Stock</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="product_stock" required placeholder="Available stock" />
+                        </div>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end">Image</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" name="product_image" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

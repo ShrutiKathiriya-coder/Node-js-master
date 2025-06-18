@@ -1,0 +1,100 @@
+<%- include('../header') %>
+<style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.full-height-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Optional light background */
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.table-wrapper {
+    margin-left: 263px;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+</style>
+<div class="full-height-wrapper">
+    <!-- Breadcrumb Section -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Tables</h4>
+                <div class="ms-auto text-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="main-content">
+        <div class="table-wrapper card">
+            <div class="card-body">
+                <h5 class="card-title mb-0">Product Data</h5>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>SubCategory</th>
+                        <th>ExtraCategory</th>
+                        <th>Old Price</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Stock</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allProducts.map((data, index) => { %>
+                        <tr>
+                            <th><%= ++index %></th>
+                            <td><%= data.product_name %></td>
+                            <td><%= data.category_id ? data.category_id.c_title : 'N/A' %></td>
+                                                        <td><%= data.subcategory_id ? data.subcategory_id.subcategory_title : 'N/A' %></td>
+                                                        <td><%= data.extracategory_id ? data.extracategory_id.extraCategory_title : 'N/A' %></td>
+                                                                                    <td><%= data.old_price %></td>
+                            <td><%= data.product_price %></td>
+                            <td><%= data.product_desc %></td>
+                            <td><%= data.product_stock %></td>
+                            <td><img src="../<%= data.product_image %>" height="100"></td>
+                            <td>
+                                <a href="#" style="color: green;">Edit <i class="me-2 mdi mdi-border-color"></i></a><br/>
+                                <a href="#" style="color: red;">Delete <i class="me-2 mdi mdi-delete"></i></a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../footer') %>

@@ -2,7 +2,7 @@
 const usersModel = require("../models/usermodal");
 
 const fetchUser = (req, res) => {
-  res.status(200).json({ msg: "GET Request is called..." });
+  res.status(200).json({ msg: "get Request is call." });
 };
 
 const insertUser = async (req, res) => {
@@ -14,9 +14,9 @@ const insertUser = async (req, res) => {
     if (addUser) {
       res
         .status(201)
-        .json({ insert: true, msg: "User Inserted Successfully...." });
+        .json({ insert: true, msg: "User insert Successfully." });
     } else {
-      res.status(400).json({ insert: false, msg: "User Insertion Failed...." });
+      res.status(400).json({ insert: false, msg: "User  Failed." });
     }
   } catch (e) {
     res.status(400).json({ msg: " Wrong here", err: e });
@@ -32,9 +32,9 @@ const updateuser=async(req,res)=>{
       req.body
   );
     if(updatedata){
-    res.status(200).json({ update: true, msg: "User updated...." });
+    res.status(200).json({ update: true, msg: "User updated." });
   }else{
-    res.status(200).json({ update: false, msg: "User  failed...." });
+    res.status(200).json({ update: false, msg: "User  failed." });
   }
   } catch (e) {
     res.status(400).json({ msg: " Wrong", err: e });
@@ -46,9 +46,9 @@ const deleteuser=async(req,res)=>{
   const datadelete=await usersModel.findByIdAndDelete(req.params.id);
   try {
     if(datadelete){
-      res.status(200).json({delete: true,msg: " delete succesfully....."})
+      res.status(200).json({delete: true,msg: " delete succesfully.."})
     }else{
-      res.status(200).json({delete: false,msg: " delete not succesfully....."})
+      res.status(200).json({delete: false,msg: " delete not succesfully."})
     }
   } catch (e) {
     res.status(400).json({ msg: "Wrong here", err: e });

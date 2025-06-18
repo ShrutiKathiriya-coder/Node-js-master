@@ -1,0 +1,68 @@
+<%- include('../header') %>
+    
+                    <div class="page-wrapper">
+                        <div class="container-fluid" style="margin-top: 20px; height: 550px;">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="card shadow rounded">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="mb-0">Edit Extra Category</h5>
+                                        </div>
+                                        <form method="post"
+                                            action="/extracategory/editextracategory/<%= updateextracategory.id %>">
+                                            <div class="card-body">
+
+                                                <!-- Category -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Category</label>
+                                                    <select class="form-control" name="category_id">
+                                                        <option value="">--- Select ---</option>
+                                                        <% allCategory.map((category)=> { %>
+                                                            <option value="<%= category.id %>" <%
+                                                                if(category.id==updateextracategory.category_id) { %>
+                                                                selected <% } %>
+                                                                    >
+                                                                    <%= category.c_title %>
+                                                            </option>
+                                                            <% }) %>
+                                                    </select>
+                                                </div>
+
+                                                <!-- SubCategory -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">SubCategory</label>
+                                                    <select class="form-control" name="subCategory_id">
+                                                        <option>Select</option>
+                                                        <% allSubCategory.map((subcategory)=> { %>
+                                                            <option value="<%= subcategory.id %>" <% if
+                                                                (subcategory.id==updateextracategory.subCategory_id) {
+                                                                %> selected <% } %>>
+                                                                    <%= subcategory.subcategory_title %>
+                                                            </option>
+                                                            <% }) %>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Extra Category Title -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Extra Category Title</label>
+                                                    <input type="text" class="form-control" name="extraCategory_title"
+                                                        placeholder="Enter Extra Category Title" required
+                                                        value="<%= updateextracategory.extraCategory_title %>" />
+                                                </div>
+
+                                            </div>
+                                            <!-- button add extra category   -->
+                                            <div class="card-footer text-end">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fas fa-plus-circle me-1"></i> Update Extra Category
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%- include('../footer') %>
