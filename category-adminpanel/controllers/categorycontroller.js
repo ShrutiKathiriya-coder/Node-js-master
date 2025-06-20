@@ -24,9 +24,9 @@ const insertCategory = async (req, res) => {
     const insert = await category.create(req.body);
 
     if (insert) {
-      req.flash("success", "Category Inserted...");
+      req.flash("success", "Category insert");
     } else {
-      req.flash("error", "Category Insertion failed...");
+      req.flash("error", "Category Insertion fail");
     }
     res.redirect("/category/addCategoryPage");
   } catch (e) {
@@ -48,7 +48,7 @@ const viewcategorypage = async (req, res) => {
         error: req.flash("error"),
       });
     } else {
-      req.flash("error", "No Category Found....");
+      req.flash("error", "No Category Found");
       res.redirect("back");
     }
   } catch (e) {
@@ -94,7 +94,7 @@ const updatecategory = async (req, res) => {
     const data = await category.findById(req.params.id);
 
     if (req.file) {
-      console.log("Request File Called....");
+      console.log(" File is Call");
 
       fs.unlinkSync(data.c_image);
 
@@ -108,12 +108,12 @@ const updatecategory = async (req, res) => {
       console.log("Update Data ", updateData);
 
       if (updateData) {
-        req.flash("success", "Category updated successfully...");
+        req.flash("success", "Category update successfully...");
       } else {
-        req.flash("error", "Category updation failed...");
+        req.flash("error", "Category  failed.");
       }
     } else {
-      console.log("Not File Called....");
+      console.log("Not File Called..");
 
       if (data) {
         req.body.c_image = data.c_image;
@@ -125,12 +125,12 @@ const updatecategory = async (req, res) => {
         console.log("Update Data ", updateData);
 
         if (updateData) {
-          req.flash("success", "Category updated successfully...");
+          req.flash("success", "Category update successfully.");
         } else {
-          req.flash("error", "Category updation failed...");
+          req.flash("error", "Category updation failed");
         }
       } else {
-        req.flash("error", "Data not found...");
+        req.flash("error", "data is not found");
       }
     }
 

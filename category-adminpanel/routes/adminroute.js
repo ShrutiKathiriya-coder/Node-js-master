@@ -27,7 +27,6 @@ const { loginPage, userChecked, lostPassword, otpverifypage, checkEmail, checkot
 //login page
  route.get('/', passport.checkLostPasswordAuthentication, loginPage);
 
-
 route.post('/login',passport.authenticate("local-auth", { failureRedirect: "/" }), userChecked);
 //lost password
 route.get('/lostPasswordPage',passport.checkLostPasswordAuthentication, lostPassword);

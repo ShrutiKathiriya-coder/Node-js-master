@@ -33,9 +33,9 @@ const insertsubcategory = async (req, res) => {
     const insert = await subcategory.create(req.body);
 
     if (insert) {
-      req.flash("success", "Subcategory inserted...");
+      req.flash("success", "Subcategory is insert");
     } else {
-      req.flash("error", "Subcategory insertion falied...");
+      req.flash("error", "Subcategory insertion fail");
     }
 
     res.redirect("/subcategory/addsubcategorypage");
@@ -60,7 +60,7 @@ const viewSubcategoryPage = async (req, res) => {
       });
     } else {
       res.redirect("subcategory/viewsubcategorypage");
-      req.flash("error", "SubCategory not found..");
+      req.flash("error", "subcategory is not found.");
     }
   } catch (e) {
     console.log(e);
@@ -134,13 +134,13 @@ const deleteSubCategory = async (req, res) => {
       if (deleteSubCategory) {
         req.flash(
           "success",
-          `${deleteSubCategory.subcategory_title} deleted successfully...`
+          `${deleteSubCategory.subcategory_title} delete sucessfull`
         );
       } else {
-        req.flash("error", "SubCategory Deletion failed...");
+        req.flash("error", "SubCategory delete fail...");
       }
     } else {
-      req.flash("error", "Deletion Failed....");
+      req.flash("error", "delete fail..");
     }
 
     res.redirect("/subcategory/viewsubcategorypage");

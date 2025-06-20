@@ -26,13 +26,13 @@ const addextracategorypage = async (req, res) => {
 
 const deleteExtracategory = async (req, res) => {
     const id = req.params.id;
-    console.log("Deleting extracategory with id:", id);
+    console.log("Delete extracategory with id:", id);
     try {
-        const productDeleteData = await product.deleteMany({
+        const productDeleteData = await products.deleteMany({
             extraCategory_id: id,
         });
 
-        const deleteextraCategory = await ExtraCategory.findByIdAndDelete(id);
+        const deleteextraCategory = await extracategory.findByIdAndDelete(id);
 
         if (deleteextraCategory && productDeleteData) {
             req.flash("success", `${deleteextraCategory.extraCategory_title} deleted successfully.`);
@@ -62,8 +62,8 @@ const insertcategorypage = async (req, res) => {
 
     res.redirect("/extracategory/addextracategory");
   } catch (e) {
-    console.log("Insert Error:", e);
-    req.flash("error", "Something went wrong");
+    console.log("Error:", e);
+    req.flash("error", "not  found");
     res.redirect("/extracategory/addextracategory");
   }
 };
@@ -92,9 +92,9 @@ const viewextracategorypage = async (req, res) => {
 
 const deleteextraCategory = async (req, res) => {
     const id = req.params.id;
-    console.log("Deleting extracategory with id:", id);
+    console.log("Delete extracategory with id:", id);
     try {
-        const productDeleteData = await product.deleteMany({
+        const productDeleteData = await products.deleteMany({
             extraCategory_id: id,
         });
 
@@ -106,8 +106,8 @@ const deleteextraCategory = async (req, res) => {
             req.flash("error", "ExtraCategory not found.");
         }
     } catch (error) {
-        console.log("Error deleting extracategory:", error);
-        req.flash("error", "Something went wrong while deleting.");
+        console.log("error:", error);
+        req.flash("error", "error not found");
     }
     res.redirect("/extracategory/viewextracategory");
 }
@@ -147,14 +147,14 @@ const editextracategory = async (req, res) => {
     try {
         const updateData = await extracategory.findByIdAndUpdate(req.params.id, req.body);
         if (updateData) {
-            req.flash("success", "ExtraCategory updated successfully.");
+            req.flash("success", "ExtraCategory update successfully.");
         } else {
-            req.flash("error", "ExtraCategory update failed.");
+            req.flash("error", "ExtraCategory update fail.");
         }
         res.redirect("/extracategory/viewextracategory");
     } catch (e) {
         console.error(e);
-        req.flash("error", "Server error while updating ExtraCategory.");
+        req.flash("error", "server error");
         res.redirect("/extracategory/viewextracategory");
     }
 };

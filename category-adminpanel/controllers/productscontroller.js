@@ -33,9 +33,9 @@ const insertProduct = async (req, res) => {
     const productInsert = await products.create(req.body);
 
     if (productInsert) {
-      req.flash("success", "Product is inserted...");
+      req.flash("success", "Product is insert...");
     } else {
-      req.flash("error", "Product is insertion failed...");
+      req.flash("error", "Product is insertion fail");
     }
     res.redirect("/products/addproductpage");
   } catch (e) {

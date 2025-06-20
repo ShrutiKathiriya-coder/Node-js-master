@@ -335,37 +335,36 @@ const changemypassword = async (req, res) => {
 
         if (currentPassword === adminData.password) {
             if (newPassword !== adminData.password) {
-                console.log("my password", newPassword, confirmPassword);
-
                 if (newPassword === confirmPassword) {
                     try {
                         const isUpdate = await admin.findByIdAndUpdate(adminData._id, { password: newPassword });
                         if (isUpdate) {
-                            console.log("Password updated...", isUpdate);
-                            res.redirect('/');
+                            console.log("Password updated...");
+                            res.redirect("/"); 
                         } else {
                             console.log("Password not updated");
-                            res.redirect('/changepassword');
+                            res.redirect("/changepassword");
                         }
                     } catch (e) {
                         res.send(`<h2> Not Found : ${e} </h2>`);
                     }
                 } else {
-                    console.log("new and conform password are not match");
-                    res.redirect('/changepassword');
+                    console.log("new and confirm password are not matching");
+                    res.redirect("/changepassword");
                 }
             } else {
-                console.log("newpassword and password are not match");
-                res.redirect('/changepassword');
+                console.log("new password is same as old password");
+                res.redirect("/changepassword");
             }
         } else {
-            console.log("Password is incorrect");
-            res.redirect('/changepassword');
+            console.log("current password is incorrect");
+            res.redirect("/changepassword");
         }
     } catch (error) {
         res.send(`<h2> Not found : ${error} </h2>`);
     }
-}
+};
+
 
 //newswtpassword
 
