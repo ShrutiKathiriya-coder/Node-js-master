@@ -2,7 +2,9 @@ const category=require('../models/categorymodel');
 const subcategory=require('../models/subcategory')
 const extracategory=require('../models/extracategory');
 const products = require('../models/productmodel');
-
+const fs = require('fs');
+const path = require("path");  
+     
 const addProductPage = async (req, res) => {
   try {
     const allCategory = await category.find();
@@ -68,8 +70,37 @@ const viewProductPage = async (req, res) => {
   }
 };
 
+
+const deleteproduct = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+   
+    const deleteProduct = await products.findByIdAndDelete(id);
+    if (deleteProduct) {
+  
+      if (deleteProduct.product_image) {
+        const imagePath = path.join("../uploads", deleteProduct.product_image);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      }
+
+      req.flash("success", "Product and image deleted successfully");
+    } else {
+      req.flash("error", "Product not found.");
+    }
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "Something went wrong while deleting.");
+  }
+
+  res.redirect("/products/viewproductpage");
+};
+
 module.exports={
     addProductPage,
     insertProduct,
-    viewProductPage
+    viewProductPage,
+    deleteproduct
 }

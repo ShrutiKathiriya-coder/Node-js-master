@@ -28,10 +28,10 @@ const insertCategory = async (req, res) => {
     } else {
       req.flash("error", "Category Insertion fail");
     }
-    res.redirect("/category/addCategoryPage");
+    res.redirect("/category/addcategorypage");
   } catch (e) {
     req.flash("error", `Exception : ${e}`);
-    res.redirect("/category/addCategoryPage");
+    res.redirect("/category/addcategorypage");
   }
 };
 
@@ -66,21 +66,19 @@ const editcategoryPage = async (req, res) => {
     const data = await category.findById(req.params.id);
 
     console.log("Edit Data", data);
-
     if (data) {
-      res.render("category/editCategoryPage", {
+      res.render("category/editcategorypage", {
         data: data,
         success: "",
         error: "",
-        currentAdmin
       });
     } else {
-      res.redirect("category/editCategoryPage");
+      res.redirect("category/editcategorypage");
     }
   } catch (e) {
     console.log(e);
 
-    res.redirect("category/editCategoryPage");
+    res.redirect("category/editcategorypage");
   }
 };
 
@@ -108,7 +106,7 @@ const updatecategory = async (req, res) => {
       console.log("Update Data ", updateData);
 
       if (updateData) {
-        req.flash("success", "Category update successfully...");
+        req.flash("success", "Category update sucessfull...");
       } else {
         req.flash("error", "Category  failed.");
       }

@@ -13,7 +13,7 @@ route.post('/insertCategory', uploads.single('c_image'), insertCategory);
 // viewcategory
 route.get('/viewcategorypage', viewcategorypage);
 
-route.get('/editcategoryPage', editcategoryPage);
+route.get('/editcategoryPage/:id', editcategoryPage);
 
 route.post('/updatecategory/:id', uploads.single('c_image'), updatecategory);
 

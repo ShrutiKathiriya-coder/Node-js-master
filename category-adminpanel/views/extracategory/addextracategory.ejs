@@ -1,15 +1,16 @@
 <%- include('../header') %>
 
-<div class="page-wrapper">
+<!-- Main Page Wrapper -->
+<div class="page-wrapper" style="min-height:100vh;">
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Extra Category Form</h4>
+                <h4 class="page-title text-white">Extra Category Form</h4>
                 <div class="ms-auto text-end">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        <ol class="breadcrumb bg-transparent">
+                            <li class="breadcrumb-item"><a href="/" style="color: #ffe">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" style="color: #ffe">Add Extra Category</li>
                         </ol>
                     </nav>
                 </div>
@@ -17,62 +18,70 @@
         </div>
     </div>
 
-    <!-- ✅ Form Centered in Page -->
-    <div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 70vh;">
-        <div class="row w-100 justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <form class="form-horizontal" method="post" action="/extracategory/insertextracategory">
-                        <div class="card-body">
-                            <h4 class="card-title">Extra Category</h4>
+    <!-- Form Container -->
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+        <div class="col-12 col-sm-8 col-md-6">
+            <div class="card shadow rounded" style="border-radius:15px;">
+                <form method="POST" action="/extracategory/insertextracategory" enctype="multipart/form-data">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-center font-weight-bold text-primary">Add New Extra Category</h3>
 
-                            <!-- Category -->
-                            <div class="form-group row">
-                                <label class="col-sm-3 text-end control-label col-form-label">Category</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="category_id">
-                                        <option value="">--- Select ---</option>
-                                        <% allCategory.map((category) => { %>
-                                            <option value="<%= category.id %>"><%= category.c_title %></option>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- SubCategory -->
-                            <div class="form-group row">
-                                <label class="col-sm-3 text-end control-label col-form-label">SubCategory</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="subCategory_id">
-                                        <option value="">--- Select ---</option>
-                                        <% allSubCategory.map((subcategory) => { %>
-                                            <option value="<%= subcategory.id %>"><%= subcategory.subcategory_title %></option>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- ExtraCategory Title -->
-                            <div class="form-group row">
-                                <label class="col-sm-3 text-end control-label col-form-label">Extra Category Title</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="extraCategory_title"
-                                        placeholder="Enter Extra Category Title" required />
-                                </div>
+                        <!-- Category Dropdown -->
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-4 col-form-label font-weight-bold text-end">Category</label>
+                            <div class="col-sm-8">
+                                <select class="form-control rounded-pill" name="category_id" required style="border:1px solid #ccc;">
+                                    <option value="">--- Select Category ---</option>
+                                    <% allCategory.map((category) => { %>
+                                        <option value="<%= category.id %>"><%= category.c_title %></option>
+                                    <% }) %>
+                                </select>
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="border-top">
-                            <div class="card-body text-end">
-                                <button type="submit" class="btn btn-primary">Add Extra Category</button>
+                        <!-- SubCategory Dropdown -->
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-4 col-form-label font-weight-bold text-end">SubCategory</label>
+                            <div class="col-sm-8">
+                                <select class="form-control rounded-pill" name="subCategory_id" required style="border:1px solid #ccc;">
+                                    <option value="">--- Select SubCategory ---</option>
+                                    <% allSubCategory.map((subcategory) => { %>
+                                        <option value="<%= subcategory.id %>"><%= subcategory.subcategory_title %></option>
+                                    <% }) %>
+                                </select>
                             </div>
                         </div>
-                    </form>
-                </div>
+
+                        <!-- Extra Category Title -->
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-4 col-form-label font-weight-bold text-end">Extra Category Title</label>
+                            <div class="col-sm-8">
+                                <input 
+                                    type="text" 
+                                    class="form-control rounded-pill" 
+                                    name="extraCategory_title" 
+                                    placeholder="Enter Extra Category Title" 
+                                    required 
+                                    style="border:1px solid #ccc;" 
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="border-top p-3 text-center">
+                        <button 
+                            type="submit" 
+                            class="btn btn-success rounded-pill px-5 py-2 font-weight-bold" 
+                            style="transition: all 0.3s;"
+                        >
+                            Add Extra Category
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+    </div>  
 </div>
 
 <%- include('../footer') %>

@@ -4,7 +4,7 @@ const route = express.Router();
 
 const {
   addProductPage,insertProduct,
-  viewProductPage
+  viewProductPage,deleteproduct
 } = require("../controllers/productscontroller");
 
 const upload = require("../middleware/products");
@@ -15,7 +15,7 @@ route.get("/addproductpage", addProductPage);
 route.post("/insertProduct", upload.single("product_image"), insertProduct);
 
 route.get('/viewproductpage',viewProductPage)
+//delete 
 
-// // View Products
-// route.get("/viewProductsPage", viewProductPage);
+route.get('/deleteproduct/:id',deleteproduct)
 module.exports = route;
